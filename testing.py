@@ -15,6 +15,11 @@ Scenario:
   with the machine repair. The workshop works continuously.
 
 """
+
+# now lets make some changes
+
+# is this definitely tracking everything?
+
 import random
 
 import simpy
@@ -137,3 +142,6 @@ env.run(until=SIM_TIME)
 print('Machine shop results after %s weeks' % WEEKS)
 for machine in machines:
     print('%s made %d parts.' % (machine.name, machine.parts_made))
+
+
+# random comment on the bottom

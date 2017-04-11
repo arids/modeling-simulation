@@ -61,6 +61,7 @@ class SingleThreadSimulator:
     total_waiting_time = 0
     total_landings = 0
     total_departures = 0
+    total_passengers_arriving = 0
     for airport in self.airports.values():
       total_waiting_time_for_landing += airport.total_waiting_time_for_landing
       total_waiting_time_for_departing += airport.total_waiting_time_for_departing
@@ -68,12 +69,14 @@ class SingleThreadSimulator:
                             airport.total_waiting_time_for_departing
       total_landings += airport.cnt_landings
       total_departures += airport.cnt_departures
+      total_passengers_arriving += airport.cnt_passengers_arriving
     print "TOTAL DEPARTURES: ", total_departures
     print "TOTAL_LANDINGS  : ", total_landings
     print "TOTAL WAIT TIME : ", total_waiting_time
     print "TOTAL_WAIT_TIME_FOR_DEPARTURES: ", total_waiting_time_for_departing
     print "TOTAL_WAIT_TIME_FOR_LANDINGS: ", total_waiting_time_for_landing
     print "AVG WAITING TIME: ", float(total_waiting_time) / (total_departures + total_landings)
+    print "TOTAL PASSENGERS ARRIVING: ", total_passengers_arriving
     print "(Remember landings were preferred over departures)"
 
 

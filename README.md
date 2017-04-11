@@ -20,5 +20,12 @@ python main_singlethread.py
 
 ```
 
+#### Null Message simulator
+```
+ mpiexec -n 3 python main_nullmsg.py
+
+```
+
+
 Output folder is created in the current working 
 directory. An output file is created per LP

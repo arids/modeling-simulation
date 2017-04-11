@@ -13,17 +13,23 @@ class EventType(IntEnum):
   PLANE_LANDED        = 2 #When a plane has landed and is off the runway
   READY_FOR_TAKEOFF = 3 #When the plane is on the runway and is taking off
   PLANE_DEPARTS       = 4 #When the plane has departed and the runway can be used by next plane
+  NULL_MSG = 5
 
 
 class AirportEvent(object):
-  def __init__(self, event_type, event_time, airport):
+  def __init__(self, event_type, event_time, airport, source_pid=-1):
     self.type = event_type
     self.time = event_time
-    self.airport = airport #the airport at which this event occurs
+    self.airport = airport #the airport at which this event occurs (destination)
+    self.source_pid = source_pid #Logical process_id for the source process
 
   def __cmp__(self, other):
     return cmp(self.time, other.time)
 
+
+class Airplane:
+  def __init__(self):
+    self.num_passengers = np.random.randint(200)
 
 class Airport(object):
   """
@@ -42,6 +48,7 @@ class Airport(object):
     self.total_waiting_time_for_departing = 0
     self.cnt_landings = 0
     self.cnt_departures = 0
+    self.cnt_passengers_arriving = 0
 
 
 
@@ -62,6 +69,8 @@ class Airport(object):
       self.cnt_landings += 1
       self.cnt_runways_in_use -= 1
       nxt_event_tuple = (EventType.READY_FOR_TAKEOFF, curr_time+conf.required_time_on_ground, self.id)
+      airplane = Airplane()
+      self.cnt_passengers_arriving += airplane.num_passengers
       self.sim.schedule(nxt_event_tuple)
       assert self.cnt_runways_in_use >= 0
       self.notify_waiting_planes(curr_time)

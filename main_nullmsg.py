@@ -163,7 +163,8 @@ class NullMessageSimulator:
 
     stats_recv = np.array([0]*6)
     stats_send = np.array([total_departures, total_landings, total_waiting_time,
-                           total_waiting_time_for_departing, total_waiting_time_for_landing])
+                           total_waiting_time_for_departing, total_waiting_time_for_landing,
+                           total_passengers_arriving])
     comm.Reduce(stats_send, stats_recv, op=MPI.SUM, root=0)
 
     if rank == 0:
